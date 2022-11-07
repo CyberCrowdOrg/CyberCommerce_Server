@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.DaoNftAssetsMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.DaoNftAssets">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dao_no" jdbcType="VARCHAR" property="daoNo" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="nft_file_type" jdbcType="VARCHAR" property="nftFileType" />
+    <result column="nft_file_path" jdbcType="VARCHAR" property="nftFilePath" />
+    <result column="nft_name" jdbcType="VARCHAR" property="nftName" />
+    <result column="nft_description" jdbcType="VARCHAR" property="nftDescription" />
+    <result column="nft_token_id" jdbcType="VARCHAR" property="nftTokenId" />
+    <result column="nft_contract" jdbcType="VARCHAR" property="nftContract" />
+    <result column="nft_number" jdbcType="BIGINT" property="nftNumber" />
+    <result column="nft_market_link" jdbcType="VARCHAR" property="nftMarketLink" />
+    <result column="nft_holder_address" jdbcType="VARCHAR" property="nftHolderAddress" />
+    <result column="nft_mint_address" jdbcType="VARCHAR" property="nftMintAddress" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap id="BaseDaoNftAssetsMap" type="org.cybercrowd.mvp.dto.BaseDaoNftAssetsDto">
+    <result column="nft_file_type" jdbcType="VARCHAR" property="nftFileType" />
+    <result column="nft_file_path" jdbcType="VARCHAR" property="nftFilePath" />
+    <result column="nft_name" jdbcType="VARCHAR" property="nftName" />
+    <result column="nft_description" jdbcType="VARCHAR" property="nftDescription" />
+    <result column="nft_token_id" jdbcType="VARCHAR" property="nftTokenId" />
+    <result column="nft_contract" jdbcType="VARCHAR" property="nftContract" />
+    <result column="nft_number" jdbcType="BIGINT" property="nftNumber" />
+    <result column="nft_market_link" jdbcType="VARCHAR" property="nftMarketLink" />
+    <result column="nft_holder_address" jdbcType="VARCHAR" property="nftHolderAddress" />
+    <result column="nft_mint_address" jdbcType="VARCHAR" property="nftMintAddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dao_no, task_id, nft_file_type, nft_file_path, nft_name, nft_description, nft_token_id, 
+    nft_contract, nft_number, nft_market_link, nft_holder_address, nft_mint_address, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dao_nft_assets
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dao_nft_assets
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.DaoNftAssets" useGeneratedKeys="true">
+    insert into dao_nft_assets (dao_no, task_id, nft_file_type, 
+      nft_file_path, nft_name, nft_description, 
+      nft_token_id, nft_contract, nft_number, 
+      nft_market_link, nft_holder_address, nft_mint_address, 
+      create_time, update_time)
+    values (#{daoNo,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{nftFileType,jdbcType=VARCHAR}, 
+      #{nftFilePath,jdbcType=VARCHAR}, #{nftName,jdbcType=VARCHAR}, #{nftDescription,jdbcType=VARCHAR}, 
+      #{nftTokenId,jdbcType=VARCHAR}, #{nftContract,jdbcType=VARCHAR}, #{nftNumber,jdbcType=BIGINT}, 
+      #{nftMarketLink,jdbcType=VARCHAR}, #{nftHolderAddress,jdbcType=VARCHAR}, #{nftMintAddress,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.DaoNftAssets" useGeneratedKeys="true">
+    insert into dao_nft_assets
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="daoNo != null">
+        dao_no,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="nftFileType != null">
+        nft_file_type,
+      </if>
+      <if test="nftFilePath != null">
+        nft_file_path,
+      </if>
+      <if test="nftName != null">
+        nft_name,
+      </if>
+      <if test="nftDescription != null">
+        nft_description,
+      </if>
+      <if test="nftTokenId != null">
+        nft_token_id,
+      </if>
+      <if test="nftContract != null">
+        nft_contract,
+      </if>
+      <if test="nftNumber != null">
+        nft_number,
+      </if>
+      <if test="nftMarketLink != null">
+        nft_market_link,
+      </if>
+      <if test="nftHolderAddress != null">
+        nft_holder_address,
+      </if>
+      <if test="nftMintAddress != null">
+        nft_mint_address,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="daoNo != null">
+        #{daoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="nftFileType != null">
+        #{nftFileType,jdbcType=VARCHAR},
+      </if>
+      <if test="nftFilePath != null">
+        #{nftFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="nftName != null">
+        #{nftName,jdbcType=VARCHAR},
+      </if>
+      <if test="nftDescription != null">
+        #{nftDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="nftTokenId != null">
+        #{nftTokenId,jdbcType=VARCHAR},
+      </if>
+      <if test="nftContract != null">
+        #{nftContract,jdbcType=VARCHAR},
+      </if>
+      <if test="nftNumber != null">
+        #{nftNumber,jdbcType=BIGINT},
+      </if>
+      <if test="nftMarketLink != null">
+        #{nftMarketLink,jdbcType=VARCHAR},
+      </if>
+      <if test="nftHolderAddress != null">
+        #{nftHolderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nftMintAddress != null">
+        #{nftMintAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.DaoNftAssets">
+    update dao_nft_assets
+    <set>
+      <if test="daoNo != null">
+        dao_no = #{daoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="nftFileType != null">
+        nft_file_type = #{nftFileType,jdbcType=VARCHAR},
+      </if>
+      <if test="nftFilePath != null">
+        nft_file_path = #{nftFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="nftName != null">
+        nft_name = #{nftName,jdbcType=VARCHAR},
+      </if>
+      <if test="nftDescription != null">
+        nft_description = #{nftDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="nftTokenId != null">
+        nft_token_id = #{nftTokenId,jdbcType=VARCHAR},
+      </if>
+      <if test="nftContract != null">
+        nft_contract = #{nftContract,jdbcType=VARCHAR},
+      </if>
+      <if test="nftNumber != null">
+        nft_number = #{nftNumber,jdbcType=BIGINT},
+      </if>
+      <if test="nftMarketLink != null">
+        nft_market_link = #{nftMarketLink,jdbcType=VARCHAR},
+      </if>
+      <if test="nftHolderAddress != null">
+        nft_holder_address = #{nftHolderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nftMintAddress != null">
+        nft_mint_address = #{nftMintAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.DaoNftAssets">
+    update dao_nft_assets
+    set dao_no = #{daoNo,jdbcType=VARCHAR},
+      task_id = #{taskId,jdbcType=VARCHAR},
+      nft_file_type = #{nftFileType,jdbcType=VARCHAR},
+      nft_file_path = #{nftFilePath,jdbcType=VARCHAR},
+      nft_name = #{nftName,jdbcType=VARCHAR},
+      nft_description = #{nftDescription,jdbcType=VARCHAR},
+      nft_token_id = #{nftTokenId,jdbcType=VARCHAR},
+      nft_contract = #{nftContract,jdbcType=VARCHAR},
+      nft_number = #{nftNumber,jdbcType=BIGINT},
+      nft_market_link = #{nftMarketLink,jdbcType=VARCHAR},
+      nft_holder_address = #{nftHolderAddress,jdbcType=VARCHAR},
+      nft_mint_address = #{nftMintAddress,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findBaseDaoNftAssets" resultMap="BaseDaoNftAssetsMap">
+    select <include refid="Base_Column_List"/> from dao_nft_assets
+      <where>
+        <if test="param1 != null and param1 != ''">
+          and dao_no = #{param1}
+        </if>
+        <if test="param2 != null and param2 != ''">
+          and task_id = #{param2}
+        </if>
+      </where>
+  </select>
+</mapper>

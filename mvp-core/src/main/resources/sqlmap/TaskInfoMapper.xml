@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.TaskInfoMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.TaskInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="task_parent_id" jdbcType="VARCHAR" property="taskParentId" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="task_type" jdbcType="VARCHAR" property="taskType" />
+    <result column="task_owner_id" jdbcType="BIGINT" property="taskOwnerId" />
+    <result column="task_owner_addr" jdbcType="VARCHAR" property="taskOwnerAddr" />
+    <result column="task_key_word" jdbcType="VARCHAR" property="taskKeyWord" />
+    <result column="task_source" jdbcType="VARCHAR" property="taskSource" />
+    <result column="deal_quantity" jdbcType="BIGINT" property="dealQuantity" />
+    <result column="groupon_quantity" jdbcType="BIGINT" property="grouponQuantity" />
+    <result column="distributor_quantity" jdbcType="BIGINT" property="distributorQuantity" />
+    <result column="invitees_number" jdbcType="BIGINT" property="inviteesNumber" />
+    <result column="groupon_people" jdbcType="BIGINT" property="grouponPeople" />
+    <result column="groupon_people_limit" jdbcType="BIGINT" property="grouponPeopleLimit" />
+    <result column="task_status" jdbcType="CHAR" property="taskStatus" />
+    <result column="task_start_time" jdbcType="TIMESTAMP" property="taskStartTime" />
+    <result column="task_end_time" jdbcType="TIMESTAMP" property="taskEndTime" />
+    <result column="task_completion_ time" jdbcType="TIMESTAMP" property="taskCompletionTime" />
+    <result column="enable_nft" jdbcType="CHAR" property="enableNft" />
+    <result column="enable_distributor" jdbcType="CHAR" property="enableDistributor" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap id="BaseProgressGroupListResultMap" type="org.cybercrowd.mvp.dto.ProgressGroupDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="task_owner_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar"/>
+    <result column="user_nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="groupon_people" jdbcType="BIGINT" property="grouponPeople" />
+    <result column="groupon_people_limit" jdbcType="BIGINT" property="grouponPeopleLimit" />
+    <result column="task_end_time" jdbcType="TIMESTAMP" property="taskEndTime" />
+  </resultMap>
+
+  <resultMap id="BaseUserGrouponListResultMap" type="org.cybercrowd.mvp.dto.UserGrouponDto">
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="task_owner_id" jdbcType="BIGINT" property="taskOwnerId" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+    <result column="invitees_number" jdbcType="BIGINT" property="inviteesNumber"/>
+    <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
+    <result column="goods_image" jdbcType="VARCHAR" property="goodsImage" />
+    <result column="groupon_price" jdbcType="DECIMAL" property="grouponPrice" />
+    <result column="people_limit" jdbcType="BIGINT" property="peopleLimit" />
+    <result column="task_end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="task_status" jdbcType="VARCHAR" property="taskStatus"/>
+  </resultMap>
+  <resultMap id="BaseUserDistributorListResultMap" type="org.cybercrowd.mvp.dto.UserDistributionDto">
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="task_owner_id" jdbcType="BIGINT" property="taskOwnerId" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+    <result column="invitees_number" jdbcType="BIGINT" property="inviteesNumber"/>
+    <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
+    <result column="goods_image" jdbcType="VARCHAR" property="goodsImage" />
+    <result column="groupon_price" jdbcType="DECIMAL" property="grouponPrice" />
+    <result column="people_limit" jdbcType="BIGINT" property="peopleLimit" />
+    <result column="task_end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="task_status" jdbcType="VARCHAR" property="taskStatus"/>
+    <result column="deal_quantity" jdbcType="BIGINT" property="dealQuantity"/>
+    <result column="groupon_quantity" jdbcType="BIGINT" property="grouponQuantity"/>
+    <result column="task_start_time" jdbcType="TIMESTAMP" property="startTime"/>
+  </resultMap>
+  <resultMap id="BaseUserTaskEventResultMap" type="org.cybercrowd.mvp.dto.UserTaskEventDto">
+    <result column="id" jdbcType="BIGINT" property="eventId" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="task_parent_id" jdbcType="VARCHAR" property="taskParentId" />
+    <result column="event_type" jdbcType="VARCHAR" property="eventType" />
+    <result column="event_amount" jdbcType="DECIMAL" property="eventAmount" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_nick_name" jdbcType="VARCHAR" property="userNickName" />
+    <result column="user_wallet_addr" jdbcType="VARCHAR" property="userWalletAddr" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <resultMap id="BaseUserTaskListResultMap" type="org.cybercrowd.mvp.dto.BaseUserTaskDto">
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="task_type" jdbcType="VARCHAR" property="taskType" />
+    <result column="event_type" jdbcType="VARCHAR" property="eventType" />
+    <result column="task_status" jdbcType="VARCHAR" property="taskStatus" />
+    <result column="dao_no" jdbcType="VARCHAR" property="daoNo" />
+    <result column="dao_name" jdbcType="VARCHAR" property="daoName" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="dao_owner_id" jdbcType="BIGINT" property="daoOwnerId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, task_id, task_parent_id, goods_id, task_type, task_owner_id, task_owner_addr, 
+    task_key_word, task_source, deal_quantity, groupon_quantity, distributor_quantity, 
+    invitees_number, groupon_people, groupon_people_limit, task_status, task_start_time, 
+    task_end_time, `task_completion_ time`, enable_nft, enable_distributor, create_time, 
+    update_time
+  </sql>
+  <sql id="Example_Where_Clause">
+    <where>
+      <if test="taskId != null">
+        and task_id = #{taskId,jdbcType=VARCHAR}
+      </if>
+      <if test="taskParentId != null">
+        and task_parent_id = #{taskParentId,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsId != null">
+        and goods_id = #{goodsId,jdbcType=BIGINT}
+      </if>
+      <if test="taskType != null">
+        and task_type = #{taskType,jdbcType=VARCHAR}
+      </if>
+      <if test="taskOwnerId != null">
+        and task_owner_id = #{taskOwnerId,jdbcType=BIGINT}
+      </if>
+      <if test="taskOwnerAddr != null">
+        and task_owner_addr = #{taskOwnerAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="taskKeyWord != null">
+        and task_key_word = #{taskKeyWord,jdbcType=VARCHAR}
+      </if>
+      <if test="taskSource != null">
+        and task_source = #{taskSource,jdbcType=VARCHAR}
+      </if>
+      <if test="dealQuantity != null">
+        and deal_quantity = #{dealQuantity,jdbcType=BIGINT}
+      </if>
+      <if test="grouponQuantity != null">
+        and groupon_quantity = #{grouponQuantity,jdbcType=BIGINT}
+      </if>
+      <if test="distributorQuantity != null">
+        and distributor_quantity = #{distributorQuantity,jdbcType=BIGINT}
+      </if>
+      <if test="inviteesNumber != null">
+        and invitees_number = #{inviteesNumber,jdbcType=BIGINT}
+      </if>
+      <if test="grouponPeople != null">
+        and groupon_people = #{grouponPeople,jdbcType=BIGINT}
+      </if>
+      <if test="grouponPeopleLimit != null">
+        and groupon_people_limit = #{grouponPeopleLimit,jdbcType=BIGINT}
+      </if>
+      <if test="taskStatus != null">
+        and task_status = #{taskStatus,jdbcType=CHAR}
+      </if>
+      <if test="taskStartTime != null">
+        and task_start_time = #{taskStartTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="taskEndTime != null">
+        and task_end_time = #{taskEndTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="taskCompletionTime != null">
+        and `task_completion_ time` = #{taskCompletionTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="enableNft != null">
+        and enable_nft = #{enableNft,jdbcType=CHAR}
+      </if>
+      <if test="enableDistributor != null">
+        and enable_distributor = #{enableDistributor,jdbcType=CHAR}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from task_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.TaskInfo" useGeneratedKeys="true">
+    insert into task_info (task_id, task_parent_id, goods_id, 
+      task_type, task_owner_id, task_owner_addr, 
+      task_key_word, task_source, deal_quantity, 
+      groupon_quantity, distributor_quantity, invitees_number, 
+      groupon_people, groupon_people_limit, task_status, 
+      task_start_time, task_end_time, `task_completion_ time`, 
+      enable_nft, enable_distributor, create_time, 
+      update_time)
+    values (#{taskId,jdbcType=VARCHAR}, #{taskParentId,jdbcType=VARCHAR}, #{goodsId,jdbcType=BIGINT}, 
+      #{taskType,jdbcType=VARCHAR}, #{taskOwnerId,jdbcType=BIGINT}, #{taskOwnerAddr,jdbcType=VARCHAR}, 
+      #{taskKeyWord,jdbcType=VARCHAR}, #{taskSource,jdbcType=VARCHAR}, #{dealQuantity,jdbcType=BIGINT}, 
+      #{grouponQuantity,jdbcType=BIGINT}, #{distributorQuantity,jdbcType=BIGINT}, #{inviteesNumber,jdbcType=BIGINT}, 
+      #{grouponPeople,jdbcType=BIGINT}, #{grouponPeopleLimit,jdbcType=BIGINT}, #{taskStatus,jdbcType=CHAR}, 
+      #{taskStartTime,jdbcType=TIMESTAMP}, #{taskEndTime,jdbcType=TIMESTAMP}, #{taskCompletionTime,jdbcType=TIMESTAMP}, 
+      #{enableNft,jdbcType=CHAR}, #{enableDistributor,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.TaskInfo" useGeneratedKeys="true">
+    insert into task_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="taskParentId != null">
+        task_parent_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="taskType != null">
+        task_type,
+      </if>
+      <if test="taskOwnerId != null">
+        task_owner_id,
+      </if>
+      <if test="taskOwnerAddr != null">
+        task_owner_addr,
+      </if>
+      <if test="taskKeyWord != null">
+        task_key_word,
+      </if>
+      <if test="taskSource != null">
+        task_source,
+      </if>
+      <if test="dealQuantity != null">
+        deal_quantity,
+      </if>
+      <if test="grouponQuantity != null">
+        groupon_quantity,
+      </if>
+      <if test="distributorQuantity != null">
+        distributor_quantity,
+      </if>
+      <if test="inviteesNumber != null">
+        invitees_number,
+      </if>
+      <if test="grouponPeople != null">
+        groupon_people,
+      </if>
+      <if test="grouponPeopleLimit != null">
+        groupon_people_limit,
+      </if>
+      <if test="taskStatus != null">
+        task_status,
+      </if>
+      <if test="taskStartTime != null">
+        task_start_time,
+      </if>
+      <if test="taskEndTime != null">
+        task_end_time,
+      </if>
+      <if test="taskCompletionTime != null">
+        `task_completion_ time`,
+      </if>
+      <if test="enableNft != null">
+        enable_nft,
+      </if>
+      <if test="enableDistributor != null">
+        enable_distributor,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskParentId != null">
+        #{taskParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskOwnerId != null">
+        #{taskOwnerId,jdbcType=BIGINT},
+      </if>
+      <if test="taskOwnerAddr != null">
+        #{taskOwnerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="taskKeyWord != null">
+        #{taskKeyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="taskSource != null">
+        #{taskSource,jdbcType=VARCHAR},
+      </if>
+      <if test="dealQuantity != null">
+        #{dealQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="grouponQuantity != null">
+        #{grouponQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="distributorQuantity != null">
+        #{distributorQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="inviteesNumber != null">
+        #{inviteesNumber,jdbcType=BIGINT},
+      </if>
+      <if test="grouponPeople != null">
+        #{grouponPeople,jdbcType=BIGINT},
+      </if>
+      <if test="grouponPeopleLimit != null">
+        #{grouponPeopleLimit,jdbcType=BIGINT},
+      </if>
+      <if test="taskStatus != null">
+        #{taskStatus,jdbcType=CHAR},
+      </if>
+      <if test="taskStartTime != null">
+        #{taskStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskEndTime != null">
+        #{taskEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskCompletionTime != null">
+        #{taskCompletionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enableNft != null">
+        #{enableNft,jdbcType=CHAR},
+      </if>
+      <if test="enableDistributor != null">
+        #{enableDistributor,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.TaskInfo">
+    update task_info
+    <set>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskParentId != null">
+        task_parent_id = #{taskParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="taskType != null">
+        task_type = #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskOwnerId != null">
+        task_owner_id = #{taskOwnerId,jdbcType=BIGINT},
+      </if>
+      <if test="taskOwnerAddr != null">
+        task_owner_addr = #{taskOwnerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="taskKeyWord != null">
+        task_key_word = #{taskKeyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="taskSource != null">
+        task_source = #{taskSource,jdbcType=VARCHAR},
+      </if>
+      <if test="dealQuantity != null">
+        deal_quantity = #{dealQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="grouponQuantity != null">
+        groupon_quantity = #{grouponQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="distributorQuantity != null">
+        distributor_quantity = #{distributorQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="inviteesNumber != null">
+        invitees_number = #{inviteesNumber,jdbcType=BIGINT},
+      </if>
+      <if test="grouponPeople != null">
+        groupon_people = #{grouponPeople,jdbcType=BIGINT},
+      </if>
+      <if test="grouponPeopleLimit != null">
+        groupon_people_limit = #{grouponPeopleLimit,jdbcType=BIGINT},
+      </if>
+      <if test="taskStatus != null">
+        task_status = #{taskStatus,jdbcType=CHAR},
+      </if>
+      <if test="taskStartTime != null">
+        task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskEndTime != null">
+        task_end_time = #{taskEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskCompletionTime != null">
+        `task_completion_ time` = #{taskCompletionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enableNft != null">
+        enable_nft = #{enableNft,jdbcType=CHAR},
+      </if>
+      <if test="enableDistributor != null">
+        enable_distributor = #{enableDistributor,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.TaskInfo">
+    update task_info
+    set task_id = #{taskId,jdbcType=VARCHAR},
+      task_parent_id = #{taskParentId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      task_type = #{taskType,jdbcType=VARCHAR},
+      task_owner_id = #{taskOwnerId,jdbcType=BIGINT},
+      task_owner_addr = #{taskOwnerAddr,jdbcType=VARCHAR},
+      task_key_word = #{taskKeyWord,jdbcType=VARCHAR},
+      task_source = #{taskSource,jdbcType=VARCHAR},
+      deal_quantity = #{dealQuantity,jdbcType=BIGINT},
+      groupon_quantity = #{grouponQuantity,jdbcType=BIGINT},
+      distributor_quantity = #{distributorQuantity,jdbcType=BIGINT},
+      invitees_number = #{inviteesNumber,jdbcType=BIGINT},
+      groupon_people = #{grouponPeople,jdbcType=BIGINT},
+      groupon_people_limit = #{grouponPeopleLimit,jdbcType=BIGINT},
+      task_status = #{taskStatus,jdbcType=CHAR},
+      task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
+      task_end_time = #{taskEndTime,jdbcType=TIMESTAMP},
+      `task_completion_ time` = #{taskCompletionTime,jdbcType=TIMESTAMP},
+      enable_nft = #{enableNft,jdbcType=CHAR},
+      enable_distributor = #{enableDistributor,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectTaskByTaskId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from task_info where task_id = #{param1}
+  </select>
+
+  <select id="selectTaskByTaskIdAndStatus" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from task_info where task_id = #{param1} and task_status =#{param2}
+  </select>
+  <select id="selectProgressGroupList" resultMap="BaseProgressGroupListResultMap">
+    SELECT
+      ti.task_id,
+      ti.task_owner_id,
+      ui.user_nick_name,
+      ui.user_avatar,
+      ti.groupon_people,
+      ti.groupon_people_limit,
+      ti.task_end_time
+    FROM
+      task_info ti
+        LEFT JOIN user_info ui ON ( ui.user_id = ti.task_owner_id )
+    WHERE
+      ti.task_parent_id = #{param1}
+      AND
+          ti.task_type = 'groupon'
+      AND
+          ti.task_status = '1'
+  </select>
+
+  <select id="selectList" parameterType="org.cybercrowd.mvp.model.TaskInfo" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from task_info <include refid="Example_Where_Clause"/>
+  </select>
+
+  <select id="selectListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from task_info where task_owner_id = #{param1}
+  </select>
+
+  <select id="selectUserGroupList" parameterType="java.lang.Long" resultMap="BaseUserGrouponListResultMap">
+    SELECT
+      ti.task_id,
+      ti.task_owner_id,
+      gi.id AS goods_id,
+      ti.invitees_number,
+      gi.goods_title,
+      goods_image_json AS goods_image,
+      gi.goods_sale_price AS groupon_price,
+      ti.groupon_people_limit AS people_limit,
+      ti.task_end_time,
+      ti.task_status
+    FROM
+      task_info ti
+        LEFT JOIN task_event te ON ( te.task_id = ti.task_id )
+        LEFT JOIN goods_info gi ON ( gi.id = ti.goods_id )
+    WHERE
+      te.user_id = #{param1}
+      AND te.event_type IN ( 'groupon', 'groupon_buy', 'haggle' )
+  </select>
+
+  <select id="selectUserDistributionList" parameterType="java.lang.Long" resultMap="BaseUserDistributorListResultMap">
+    SELECT
+      ti.task_id,
+      ti.task_owner_id,
+      gi.id AS goods_id,
+      ti.invitees_number,
+      gi.goods_title,
+      goods_image_json AS goods_image,
+      gi.goods_sale_price AS groupon_price,
+      ti.groupon_people_limit AS people_limit,
+      ti.task_end_time,
+      ti.task_status,
+      ti.deal_quantity,
+      ti.groupon_quantity,
+      ti.task_start_time
+    FROM
+      task_info ti
+        LEFT JOIN goods_info gi ON ( gi.id = ti.goods_id )
+    WHERE
+      ti.task_owner_id = #{param1}
+      AND ti.task_type ='distributor'
+  </select>
+
+  <select id="updateTaskDistributionQuantity" parameterType="java.lang.String" resultType="java.lang.Integer">
+    update task_info distributor_quantity = distributor_quantity+1 where task_id = #{param1}
+  </select>
+
+  <select id="findUserTaskEvent" parameterType="java.lang.Long" resultMap="BaseUserTaskEventResultMap">
+    SELECT
+      te.id,
+      te.task_id,
+      te.task_parent_id,
+      te.event_type,
+      te.event_amount,
+      ui.user_id,
+      ui.user_nick_name,
+      ui.user_wallet_addr,
+      te.create_time
+    FROM
+      task_event te
+        LEFT JOIN user_info ui ON ( ui.user_id = te.user_id )
+    WHERE
+      te.user_id = #{param1}
+  </select>
+
+  <select id="findParentTaskEvent" parameterType="List" resultMap="BaseUserTaskEventResultMap">
+    SELECT
+      te.id,
+      te.task_id,
+      te.task_parent_id,
+      te.event_type,
+      te.event_amount,
+      ui.user_id,
+      ui.user_nick_name,
+      ui.user_wallet_addr,
+      te.create_time
+    FROM
+      task_event te
+        LEFT JOIN user_info ui ON ( ui.user_id = te.user_id )
+    WHERE
+      te.task_id in
+      <foreach item="item" collection="parentTaskIds" index="index"  open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </select>
+
+    <select id="findChildTaskEvent" parameterType="List" resultMap="BaseUserTaskEventResultMap">
+      SELECT
+        te.id,
+        te.task_id,
+        te.task_parent_id,
+        te.event_type,
+        te.event_amount,
+        ui.user_id,
+        ui.user_nick_name,
+        ui.user_wallet_addr,
+        te.create_time
+      FROM
+        task_event te
+        LEFT JOIN user_info ui ON ( ui.user_id = te.user_id )
+      WHERE
+        te.task_parent_id in
+        <foreach item="item" collection="parentTaskIds" index="index"  open="(" separator="," close=")">
+          #{item}
+        </foreach>
+    </select>
+
+    <select id="findSubTaskIdList" parameterType="java.lang.String" resultType="java.lang.String">
+      select task_id from task_info where task_parent_id = #{param1}
+    </select>
+
+    <select id="findBaseUserTaskList" parameterType="java.lang.Long" resultMap="BaseUserTaskListResultMap">
+      SELECT
+        ti.task_id,
+        ti.task_type,
+        ti.task_status,
+        te.event_type,
+        daoo.dao_no,
+        te.user_id,
+        daoo.dao_owner_id,
+        te.create_time
+      FROM
+        task_info ti
+          LEFT JOIN task_event te ON ( te.task_id = ti.task_id )
+          LEFT JOIN dao_organize daoo ON ( daoo.task_id = te.task_id )
+      WHERE
+        te.user_id = #{param1}
+    </select>
+ </mapper>

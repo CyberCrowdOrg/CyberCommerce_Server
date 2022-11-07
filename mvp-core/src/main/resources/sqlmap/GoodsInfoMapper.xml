@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.GoodsInfoMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.GoodsInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
+    <result column="goods_intro" jdbcType="VARCHAR" property="goodsIntro" />
+    <result column="goods_details_intro" jdbcType="VARCHAR" property="goodsDetailsIntro" />
+    <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="goods_sale_price" jdbcType="DECIMAL" property="goodsSalePrice" />
+    <result column="goods_stock" jdbcType="BIGINT" property="goodsStock" />
+    <result column="goods_sold" jdbcType="BIGINT" property="goodsSold" />
+    <result column="goods_image_json" jdbcType="VARCHAR" property="goodsImageJson" />
+    <result column="publish_user_id" jdbcType="BIGINT" property="publishUserId" />
+    <result column="publish_user_addr" jdbcType="VARCHAR" property="publishUserAddr" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <resultMap id="BaseGoodsListResultMap" type="org.cybercrowd.mvp.dto.BaseGoodsDto">
+    <id column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <id column="task_type" jdbcType="VARCHAR" property="taskType" />
+    <id column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
+    <result column="goods_intro" jdbcType="VARCHAR" property="goodsIntro" />
+    <result column="goods_details_intro" jdbcType="VARCHAR" property="goodsDetailsIntro" />
+    <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="goods_sale_price" jdbcType="DECIMAL" property="goodsSalePrice" />
+    <result column="goods_image_json" jdbcType="VARCHAR" property="goodsImages" />
+    <result column="task_owner_id" jdbcType="BIGINT" property="ownerUserId"/>
+    <result column="user_nick_name" jdbcType="VARCHAR" property="userNickName" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, goods_title, goods_intro, goods_details_intro, goods_price, goods_sale_price, 
+    goods_stock, goods_sold, goods_image_json, publish_user_id, publish_user_addr, publish_time, 
+    last_update_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from goods_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.GoodsInfo" useGeneratedKeys="true">
+    insert into goods_info (goods_title, goods_intro, goods_details_intro, 
+      goods_price, goods_sale_price, goods_stock, 
+      goods_sold, goods_image_json, publish_user_id, 
+      publish_user_addr, publish_time, last_update_time, 
+      create_time)
+    values (#{goodsTitle,jdbcType=VARCHAR}, #{goodsIntro,jdbcType=VARCHAR}, #{goodsDetailsIntro,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=DECIMAL}, #{goodsSalePrice,jdbcType=DECIMAL}, #{goodsStock,jdbcType=BIGINT}, 
+      #{goodsSold,jdbcType=BIGINT}, #{goodsImageJson,jdbcType=VARCHAR}, #{publishUserId,jdbcType=BIGINT}, 
+      #{publishUserAddr,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.GoodsInfo" useGeneratedKeys="true">
+    insert into goods_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsTitle != null">
+        goods_title,
+      </if>
+      <if test="goodsIntro != null">
+        goods_intro,
+      </if>
+      <if test="goodsDetailsIntro != null">
+        goods_details_intro,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsSalePrice != null">
+        goods_sale_price,
+      </if>
+      <if test="goodsStock != null">
+        goods_stock,
+      </if>
+      <if test="goodsSold != null">
+        goods_sold,
+      </if>
+      <if test="goodsImageJson != null">
+        goods_image_json,
+      </if>
+      <if test="publishUserId != null">
+        publish_user_id,
+      </if>
+      <if test="publishUserAddr != null">
+        publish_user_addr,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsTitle != null">
+        #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIntro != null">
+        #{goodsIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailsIntro != null">
+        #{goodsDetailsIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSalePrice != null">
+        #{goodsSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsStock != null">
+        #{goodsStock,jdbcType=BIGINT},
+      </if>
+      <if test="goodsSold != null">
+        #{goodsSold,jdbcType=BIGINT},
+      </if>
+      <if test="goodsImageJson != null">
+        #{goodsImageJson,jdbcType=VARCHAR},
+      </if>
+      <if test="publishUserId != null">
+        #{publishUserId,jdbcType=BIGINT},
+      </if>
+      <if test="publishUserAddr != null">
+        #{publishUserAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.GoodsInfo">
+    update goods_info
+    <set>
+      <if test="goodsTitle != null">
+        goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIntro != null">
+        goods_intro = #{goodsIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailsIntro != null">
+        goods_details_intro = #{goodsDetailsIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSalePrice != null">
+        goods_sale_price = #{goodsSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsStock != null">
+        goods_stock = #{goodsStock,jdbcType=BIGINT},
+      </if>
+      <if test="goodsSold != null">
+        goods_sold = #{goodsSold,jdbcType=BIGINT},
+      </if>
+      <if test="goodsImageJson != null">
+        goods_image_json = #{goodsImageJson,jdbcType=VARCHAR},
+      </if>
+      <if test="publishUserId != null">
+        publish_user_id = #{publishUserId,jdbcType=BIGINT},
+      </if>
+      <if test="publishUserAddr != null">
+        publish_user_addr = #{publishUserAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.GoodsInfo">
+    update goods_info
+    set goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      goods_intro = #{goodsIntro,jdbcType=VARCHAR},
+      goods_details_intro = #{goodsDetailsIntro,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_sale_price = #{goodsSalePrice,jdbcType=DECIMAL},
+      goods_stock = #{goodsStock,jdbcType=BIGINT},
+      goods_sold = #{goodsSold,jdbcType=BIGINT},
+      goods_image_json = #{goodsImageJson,jdbcType=VARCHAR},
+      publish_user_id = #{publishUserId,jdbcType=BIGINT},
+      publish_user_addr = #{publishUserAddr,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectGoodsList" parameterType="java.lang.String" resultMap="BaseGoodsListResultMap" >
+    SELECT
+      ti.task_id,
+      gi.id AS goods_id,
+      ti.task_type,
+      ti.task_owner_id,
+      gi.goods_title,
+      gi.goods_intro,
+      gi.goods_details_intro,
+      gi.goods_price,
+      gi.goods_sale_price,
+      gi.goods_image_json,
+      ui.user_nick_name,
+      ui.user_avatar
+    FROM
+      task_info ti
+        LEFT JOIN goods_info gi ON ( gi.id = ti.goods_id )
+        LEFT JOIN user_info ui ON (ui.user_id = ti.task_owner_id)
+    WHERE
+      ti.task_status = #{param1} and ti.task_type in ('sales','distributor')
+  </select>
+
+  <update id="updateGoodsPublishTime" >
+    update goods_info set publish_time = #{param2} where id = #{param1}
+ </update>
+</mapper>

@@ -1,0 +1,70 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mvp_model?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+    username: dev
+    password: password
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat,slf4j,wall
+    initialSize: 1
+    minIdle: 1
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 60000
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    validationQuery: SELECT 1 FROM DUAL
+    poolPreparedStatements: false
+    # 通过connectProperties属性来打开mergeSql功能慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  # REDIS (RedisProperties)
+  redis:
+    host: localhost
+    password: password
+    port: 6379
+    pool:
+      min-idle: 5
+      max-idle: 50 # pool settings ...
+      max-active: 50
+      max-wait: 1000
+#允许跨域域名
+cross-domain:
+  domain: https://cybercrowd.store,https://www.cybercrowd.store,https://merchant.cybercrowd.store,https://api.cybercrowd.store
+
+wallet:
+  file-path: /data/mvp/wallet-file/
+
+#第三方账号登录
+twitter:
+  oauth:
+    client-id: YmprdmdOYjlUSnNVQ2Zlekx2UVY6MTpjaQ
+    token-url: https://api.twitter.com/2/oauth2/token
+  user:
+    url: https://api.twitter.com/2/users/me?user.fields=created_at,profile_image_url
+  redirect: http://localhost:8080/oauth/callback
+google:
+  oauth:
+    client-id: 1053767623532-ma4g04ppbch5nuhg1e2n311fq155dkp7.apps.googleusercontent.com
+    token-url: https://oauth2.googleapis.com/token
+  user:
+    url: https://www.googleapis.com/oauth2/v3/userinfo?alt=json
+  redirect: http://localhost:8080/oauth/callback
+facebook:
+  oauth:
+    client-id: 2899294930367355
+    token-url: https://graph.facebook.com/v14.0/oauth/access_token?client_id={0}&client_secret=424f2d7c5a5a2229c584550264f65dc2&redirect_uri={1}&code={2}
+  user:
+    url: https://graph.facebook.com/me?fields=id,name,email,picture&access_token={0}
+  redirect: https://cybercrowd.store/oauth/callback
+
+#web3j
+web3j:
+  server:
+    rinkeby: https://rinkeby.infura.io/v3/key
+    goerli: https://goerli.infura.io/v3/key
+#NFT合约地址
+contract:
+  erc721:
+  owner_private:
+  owner_address:

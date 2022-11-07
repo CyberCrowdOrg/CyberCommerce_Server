@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.UserLoginBindMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.UserLoginBind">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="login_type" jdbcType="VARCHAR" property="loginType" />
+    <result column="user_origin" jdbcType="VARCHAR" property="userOrigin" />
+    <result column="login_account" jdbcType="VARCHAR" property="loginAccount" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="bind_status" jdbcType="CHAR" property="bindStatus" />
+  </resultMap>
+  
+  <resultMap id="UserLoginBindListResultMap" type="org.cybercrowd.mvp.dto.LoginBindDto">
+    <result column="login_type" jdbcType="VARCHAR" property="loginType" />
+    <result column="user_origin" jdbcType="VARCHAR" property="userOrigin" />
+    <result column="login_account" jdbcType="VARCHAR" property="account" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="bind_status" jdbcType="CHAR" property="bindStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id , user_id ,
+    login_type, user_origin,
+    login_account, user_avatar,
+    last_login_time, create_time,
+    update_time, bind_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from  user_login_bind
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_login_bind
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.UserLoginBind" useGeneratedKeys="true">
+    insert into user_login_bind (user_id, login_type, user_origin, 
+      login_account, user_avatar, last_login_time, 
+      create_time, update_time, bind_status
+      )
+    values (#{userId,jdbcType=BIGINT}, #{loginType,jdbcType=VARCHAR}, #{userOrigin,jdbcType=VARCHAR}, 
+      #{loginAccount,jdbcType=VARCHAR}, #{userAvatar,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{bindStatus,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.UserLoginBind" useGeneratedKeys="true">
+    insert into user_login_bind
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="loginType != null">
+        login_type,
+      </if>
+      <if test="userOrigin != null">
+        user_origin,
+      </if>
+      <if test="loginAccount != null">
+        login_account,
+      </if>
+      <if test="userAvatar != null">
+        user_avatar,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="bindStatus != null">
+        bind_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="loginType != null">
+        #{loginType,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrigin != null">
+        #{userOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAccount != null">
+        #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bindStatus != null">
+        #{bindStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.UserLoginBind">
+    update user_login_bind
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="loginType != null">
+        login_type = #{loginType,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrigin != null">
+        user_origin = #{userOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAccount != null">
+        login_account = #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bindStatus != null">
+        bind_status = #{bindStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.UserLoginBind">
+    update user_login_bind
+    set user_id = #{userId,jdbcType=BIGINT},
+      login_type = #{loginType,jdbcType=VARCHAR},
+      user_origin = #{userOrigin,jdbcType=VARCHAR},
+      login_account = #{loginAccount,jdbcType=VARCHAR},
+      user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      bind_status = #{bindStatus,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectUserLoginBind" parameterType="org.cybercrowd.mvp.model.UserLoginBind" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"/>
+    from user_login_bind
+    <where>
+      <if test="userId != null">
+        and user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="loginType != null">
+        and login_type = #{loginType,jdbcType=VARCHAR}
+      </if>
+      <if test="userOrigin != null">
+        and user_origin = #{userOrigin,jdbcType=VARCHAR}
+      </if>
+      <if test="loginAccount != null">
+        and login_account = #{loginAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="userAvatar != null">
+        and user_avatar = #{userAvatar,jdbcType=VARCHAR}
+      </if>
+      <if test="lastLoginTime != null">
+        and #{lastLoginTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="bindStatus != null">
+        and bind_status =  #{bindStatus,jdbcType=CHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="userLoginBindList" parameterType="java.lang.Long" resultMap="UserLoginBindListResultMap">
+    select
+           login_type,
+           user_origin,
+           login_account,
+           last_login_time,
+           bind_status
+    from
+         user_login_bind
+    where
+          user_id = #{userId,jdbcType=BIGINT}
+  </select>
+</mapper>

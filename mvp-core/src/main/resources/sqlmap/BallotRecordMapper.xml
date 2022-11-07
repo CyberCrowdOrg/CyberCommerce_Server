@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.BallotRecordMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.BallotRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="proposal_no" jdbcType="VARCHAR" property="proposalNo" />
+    <result column="ballot_user_id" jdbcType="VARCHAR" property="ballotUserId" />
+    <result column="ballot_option_code" jdbcType="VARCHAR" property="ballotOptionCode" />
+    <result column="vote" jdbcType="BIGINT" property="vote" />
+    <result column="ballot_time" jdbcType="TIMESTAMP" property="ballotTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, proposal_no, ballot_user_id, ballot_option_code, vote, ballot_time, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ballot_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ballot_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.BallotRecord" useGeneratedKeys="true">
+    insert into ballot_record (proposal_no, ballot_user_id, ballot_option_code, 
+      vote, ballot_time, create_time, 
+      update_time)
+    values (#{proposalNo,jdbcType=VARCHAR}, #{ballotUserId,jdbcType=VARCHAR}, #{ballotOptionCode,jdbcType=VARCHAR}, 
+      #{vote,jdbcType=BIGINT}, #{ballotTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.BallotRecord" useGeneratedKeys="true">
+    insert into ballot_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="proposalNo != null">
+        proposal_no,
+      </if>
+      <if test="ballotUserId != null">
+        ballot_user_id,
+      </if>
+      <if test="ballotOptionCode != null">
+        ballot_option_code,
+      </if>
+      <if test="vote != null">
+        vote,
+      </if>
+      <if test="ballotTime != null">
+        ballot_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="proposalNo != null">
+        #{proposalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ballotUserId != null">
+        #{ballotUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="ballotOptionCode != null">
+        #{ballotOptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vote != null">
+        #{vote,jdbcType=BIGINT},
+      </if>
+      <if test="ballotTime != null">
+        #{ballotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.BallotRecord">
+    update ballot_record
+    <set>
+      <if test="proposalNo != null">
+        proposal_no = #{proposalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ballotUserId != null">
+        ballot_user_id = #{ballotUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="ballotOptionCode != null">
+        ballot_option_code = #{ballotOptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vote != null">
+        vote = #{vote,jdbcType=BIGINT},
+      </if>
+      <if test="ballotTime != null">
+        ballot_time = #{ballotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.BallotRecord">
+    update ballot_record
+    set proposal_no = #{proposalNo,jdbcType=VARCHAR},
+      ballot_user_id = #{ballotUserId,jdbcType=VARCHAR},
+      ballot_option_code = #{ballotOptionCode,jdbcType=VARCHAR},
+      vote = #{vote,jdbcType=BIGINT},
+      ballot_time = #{ballotTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

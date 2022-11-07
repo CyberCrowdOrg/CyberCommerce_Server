@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.PayOrderMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.PayOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="org_pay_no" jdbcType="VARCHAR" property="orgPayNo" />
+    <result column="pay_no" jdbcType="VARCHAR" property="payNo" />
+    <result column="channel_id" jdbcType="VARCHAR" property="channelId" />
+    <result column="channel_flow_no" jdbcType="VARCHAR" property="channelFlowNo" />
+    <result column="pay_method" jdbcType="VARCHAR" property="payMethod" />
+    <result column="pay_order_type" jdbcType="VARCHAR" property="payOrderType" />
+    <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress" />
+    <result column="order_coin_id" jdbcType="BIGINT" property="orderCoinId" />
+    <result column="order_coin_name" jdbcType="VARCHAR" property="orderCoinName" />
+    <result column="receive_coin_id" jdbcType="BIGINT" property="receiveCoinId" />
+    <result column="receive_coin_name" jdbcType="VARCHAR" property="receiveCoinName" />
+    <result column="receive_amount" jdbcType="DECIMAL" property="receiveAmount" />
+    <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+    <result column="order_exchange_rate" jdbcType="DECIMAL" property="orderExchangeRate" />
+    <result column="pay_status" jdbcType="CHAR" property="payStatus" />
+    <result column="pay_success_time" jdbcType="TIMESTAMP" property="paySuccessTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_no, org_pay_no, pay_no, channel_id, channel_flow_no, pay_method,
+    pay_order_type, receive_address, order_coin_id, order_coin_name, receive_coin_id, 
+    receive_coin_name, receive_amount, order_amount, order_exchange_rate, pay_status, 
+    pay_success_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pay_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.PayOrder" useGeneratedKeys="true">
+    insert into pay_order (order_no, org_pay_no, pay_no, 
+      channel_id, channel_flow_no, pay_method,
+       pay_order_type, receive_address,
+      order_coin_id, order_coin_name, receive_coin_id, 
+      receive_coin_name, receive_amount, order_amount, 
+      order_exchange_rate, pay_status, pay_success_time, 
+      create_time, update_time)
+    values (#{orderNo,jdbcType=VARCHAR}, #{orgPayNo,jdbcType=VARCHAR}, #{payNo,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=VARCHAR}, #{channelFlowNo,jdbcType=VARCHAR}, #{payMethod,jdbcType=VARCHAR},
+      #{payOrderType,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR},
+      #{orderCoinId,jdbcType=BIGINT}, #{orderCoinName,jdbcType=VARCHAR}, #{receiveCoinId,jdbcType=BIGINT}, 
+      #{receiveCoinName,jdbcType=VARCHAR}, #{receiveAmount,jdbcType=DECIMAL}, #{orderAmount,jdbcType=DECIMAL}, 
+      #{orderExchangeRate,jdbcType=DECIMAL}, #{payStatus,jdbcType=CHAR}, #{paySuccessTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.PayOrder" useGeneratedKeys="true">
+    insert into pay_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="orgPayNo != null">
+        org_pay_no,
+      </if>
+      <if test="payNo != null">
+        pay_no,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="channelFlowNo != null">
+        channel_flow_no,
+      </if>
+      <if test="payMethod != null">
+        pay_method,
+      </if>
+      <if test="payOrderType != null">
+        pay_order_type,
+      </if>
+      <if test="receiveAddress != null">
+        receive_address,
+      </if>
+      <if test="orderCoinId != null">
+        order_coin_id,
+      </if>
+      <if test="orderCoinName != null">
+        order_coin_name,
+      </if>
+      <if test="receiveCoinId != null">
+        receive_coin_id,
+      </if>
+      <if test="receiveCoinName != null">
+        receive_coin_name,
+      </if>
+      <if test="receiveAmount != null">
+        receive_amount,
+      </if>
+      <if test="orderAmount != null">
+        order_amount,
+      </if>
+      <if test="orderExchangeRate != null">
+        order_exchange_rate,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="paySuccessTime != null">
+        pay_success_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPayNo != null">
+        #{orgPayNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payNo != null">
+        #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelFlowNo != null">
+        #{channelFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null">
+        #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="payOrderType != null">
+        #{payOrderType,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null">
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCoinId != null">
+        #{orderCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCoinName != null">
+        #{orderCoinName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveCoinId != null">
+        #{receiveCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="receiveCoinName != null">
+        #{receiveCoinName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAmount != null">
+        #{receiveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null">
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderExchangeRate != null">
+        #{orderExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=CHAR},
+      </if>
+      <if test="paySuccessTime != null">
+        #{paySuccessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.PayOrder">
+    update pay_order
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPayNo != null">
+        org_pay_no = #{orgPayNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payNo != null">
+        pay_no = #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelFlowNo != null">
+        channel_flow_no = #{channelFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null">
+        pay_method = #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="payOrderType != null">
+        pay_order_type = #{payOrderType,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null">
+        receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCoinId != null">
+        order_coin_id = #{orderCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCoinName != null">
+        order_coin_name = #{orderCoinName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveCoinId != null">
+        receive_coin_id = #{receiveCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="receiveCoinName != null">
+        receive_coin_name = #{receiveCoinName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAmount != null">
+        receive_amount = #{receiveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null">
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderExchangeRate != null">
+        order_exchange_rate = #{orderExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=CHAR},
+      </if>
+      <if test="paySuccessTime != null">
+        pay_success_time = #{paySuccessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.PayOrder">
+    update pay_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      org_pay_no = #{orgPayNo,jdbcType=VARCHAR},
+      pay_no = #{payNo,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=VARCHAR},
+      channel_flow_no = #{channelFlowNo,jdbcType=VARCHAR},
+      pay_method = #{payMethod,jdbcType=VARCHAR},
+      pay_order_type = #{payOrderType,jdbcType=VARCHAR},
+      receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      order_coin_id = #{orderCoinId,jdbcType=BIGINT},
+      order_coin_name = #{orderCoinName,jdbcType=VARCHAR},
+      receive_coin_id = #{receiveCoinId,jdbcType=BIGINT},
+      receive_coin_name = #{receiveCoinName,jdbcType=VARCHAR},
+      receive_amount = #{receiveAmount,jdbcType=DECIMAL},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      order_exchange_rate = #{orderExchangeRate,jdbcType=DECIMAL},
+      pay_status = #{payStatus,jdbcType=CHAR},
+      pay_success_time = #{paySuccessTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

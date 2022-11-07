@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.BaseCoinMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.BaseCoin">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="coin_id" jdbcType="BIGINT" property="coinId" />
+    <result column="parent_coin_id" jdbcType="BIGINT" property="parentCoinId" />
+    <result column="coin_name" jdbcType="VARCHAR" property="coinName" />
+    <result column="coin_full_name" jdbcType="VARCHAR" property="coinFullName" />
+    <result column="coin_type" jdbcType="VARCHAR" property="coinType" />
+    <result column="contract_addr" jdbcType="VARCHAR" property="contractAddr" />
+    <result column="coin_decimal" jdbcType="BIGINT" property="coinDecimal" />
+    <result column="default_wallet" jdbcType="CHAR" property="defaultWallet" />
+    <result column="default_recharge" jdbcType="CHAR" property="defaultRecharge" />
+    <result column="coin_image" jdbcType="VARCHAR" property="coinImage" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, coin_id, parent_coin_id, coin_name, coin_full_name, coin_type, contract_addr, 
+    coin_decimal, default_wallet, default_recharge, coin_image, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_coin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_coin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.BaseCoin" useGeneratedKeys="true">
+    insert into base_coin (coin_id, parent_coin_id, coin_name, 
+      coin_full_name, coin_type, contract_addr, 
+      coin_decimal, default_wallet, default_recharge, 
+      coin_image, create_time, update_time
+      )
+    values (#{coinId,jdbcType=BIGINT}, #{parentCoinId,jdbcType=BIGINT}, #{coinName,jdbcType=VARCHAR}, 
+      #{coinFullName,jdbcType=VARCHAR}, #{coinType,jdbcType=VARCHAR}, #{contractAddr,jdbcType=VARCHAR}, 
+      #{coinDecimal,jdbcType=BIGINT}, #{defaultWallet,jdbcType=CHAR}, #{defaultRecharge,jdbcType=CHAR}, 
+      #{coinImage,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.BaseCoin" useGeneratedKeys="true">
+    insert into base_coin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coinId != null">
+        coin_id,
+      </if>
+      <if test="parentCoinId != null">
+        parent_coin_id,
+      </if>
+      <if test="coinName != null">
+        coin_name,
+      </if>
+      <if test="coinFullName != null">
+        coin_full_name,
+      </if>
+      <if test="coinType != null">
+        coin_type,
+      </if>
+      <if test="contractAddr != null">
+        contract_addr,
+      </if>
+      <if test="coinDecimal != null">
+        coin_decimal,
+      </if>
+      <if test="defaultWallet != null">
+        default_wallet,
+      </if>
+      <if test="defaultRecharge != null">
+        default_recharge,
+      </if>
+      <if test="coinImage != null">
+        coin_image,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coinId != null">
+        #{coinId,jdbcType=BIGINT},
+      </if>
+      <if test="parentCoinId != null">
+        #{parentCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="coinName != null">
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinFullName != null">
+        #{coinFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null">
+        #{coinType,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAddr != null">
+        #{contractAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="coinDecimal != null">
+        #{coinDecimal,jdbcType=BIGINT},
+      </if>
+      <if test="defaultWallet != null">
+        #{defaultWallet,jdbcType=CHAR},
+      </if>
+      <if test="defaultRecharge != null">
+        #{defaultRecharge,jdbcType=CHAR},
+      </if>
+      <if test="coinImage != null">
+        #{coinImage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.BaseCoin">
+    update base_coin
+    <set>
+      <if test="coinId != null">
+        coin_id = #{coinId,jdbcType=BIGINT},
+      </if>
+      <if test="parentCoinId != null">
+        parent_coin_id = #{parentCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="coinName != null">
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinFullName != null">
+        coin_full_name = #{coinFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null">
+        coin_type = #{coinType,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAddr != null">
+        contract_addr = #{contractAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="coinDecimal != null">
+        coin_decimal = #{coinDecimal,jdbcType=BIGINT},
+      </if>
+      <if test="defaultWallet != null">
+        default_wallet = #{defaultWallet,jdbcType=CHAR},
+      </if>
+      <if test="defaultRecharge != null">
+        default_recharge = #{defaultRecharge,jdbcType=CHAR},
+      </if>
+      <if test="coinImage != null">
+        coin_image = #{coinImage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.BaseCoin">
+    update base_coin
+    set coin_id = #{coinId,jdbcType=BIGINT},
+      parent_coin_id = #{parentCoinId,jdbcType=BIGINT},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      coin_full_name = #{coinFullName,jdbcType=VARCHAR},
+      coin_type = #{coinType,jdbcType=VARCHAR},
+      contract_addr = #{contractAddr,jdbcType=VARCHAR},
+      coin_decimal = #{coinDecimal,jdbcType=BIGINT},
+      default_wallet = #{defaultWallet,jdbcType=CHAR},
+      default_recharge = #{defaultRecharge,jdbcType=CHAR},
+      coin_image = #{coinImage,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectDefaultWalletCoinList"  resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from base_coin where default_wallet = '1'
+  </select>
+
+  <select id="selectDefaultRechargeCoinList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from base_coin where default_recharge = '1'
+  </select>
+
+  <select id="selectBaseCoinByCoinId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from base_coin where coin_id = #{param1}
+  </select>
+</mapper>

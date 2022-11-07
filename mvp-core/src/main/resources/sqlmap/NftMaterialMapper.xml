@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.NftMaterialMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.NftMaterial">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="nft_file_type" jdbcType="VARCHAR" property="nftFileType" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="casting_status" jdbcType="CHAR" property="castingStatus" />
+    <result column="castion_succ_time" jdbcType="TIMESTAMP" property="castionSuccTime" />
+    <result column="nft_owner_addr" jdbcType="VARCHAR" property="nftOwnerAddr" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, task_id, nft_file_type, file_path, create_time, update_time, casting_status, 
+    castion_succ_time, nft_owner_addr
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nft_material
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from nft_material
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.NftMaterial" useGeneratedKeys="true">
+    insert into nft_material (task_id, nft_file_type, file_path, 
+      create_time, update_time, casting_status, 
+      castion_succ_time, nft_owner_addr)
+    values (#{taskId,jdbcType=VARCHAR}, #{nftFileType,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{castingStatus,jdbcType=CHAR}, 
+      #{castionSuccTime,jdbcType=TIMESTAMP}, #{nftOwnerAddr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.NftMaterial" useGeneratedKeys="true">
+    insert into nft_material
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="nftFileType != null">
+        nft_file_type,
+      </if>
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="castingStatus != null">
+        casting_status,
+      </if>
+      <if test="castionSuccTime != null">
+        castion_succ_time,
+      </if>
+      <if test="nftOwnerAddr != null">
+        nft_owner_addr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="nftFileType != null">
+        #{nftFileType,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="castingStatus != null">
+        #{castingStatus,jdbcType=CHAR},
+      </if>
+      <if test="castionSuccTime != null">
+        #{castionSuccTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nftOwnerAddr != null">
+        #{nftOwnerAddr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.NftMaterial">
+    update nft_material
+    <set>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="nftFileType != null">
+        nft_file_type = #{nftFileType,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="castingStatus != null">
+        casting_status = #{castingStatus,jdbcType=CHAR},
+      </if>
+      <if test="castionSuccTime != null">
+        castion_succ_time = #{castionSuccTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nftOwnerAddr != null">
+        nft_owner_addr = #{nftOwnerAddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.NftMaterial">
+    update nft_material
+    set task_id = #{taskId,jdbcType=VARCHAR},
+      nft_file_type = #{nftFileType,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      casting_status = #{castingStatus,jdbcType=CHAR},
+      castion_succ_time = #{castionSuccTime,jdbcType=TIMESTAMP},
+      nft_owner_addr = #{nftOwnerAddr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

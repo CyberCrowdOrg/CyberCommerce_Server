@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.UserNftAssetsMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.UserNftAssets">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="nft_no" jdbcType="VARCHAR" property="nftNo" />
+    <result column="nft_name" jdbcType="VARCHAR" property="nftName" />
+    <result column="nft_contract" jdbcType="VARCHAR" property="nftContract" />
+    <result column="nft_number" jdbcType="BIGINT" property="nftNumber" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap id="BaseResultUserNftAssetsMap" type="org.cybercrowd.mvp.dto.response.UserNftAssetsRes">
+    <result column="nft_no" jdbcType="VARCHAR" property="nftNo" />
+    <result column="nft_name" jdbcType="VARCHAR" property="nftName" />
+    <result column="nft_contract" jdbcType="VARCHAR" property="contractAddr" />
+    <result column="nft_number" jdbcType="BIGINT" property="nftNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, nft_no, nft_name, nft_contract, nft_number, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_nft_assets
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_nft_assets
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.UserNftAssets" useGeneratedKeys="true">
+    insert into user_nft_assets (user_id, nft_no, nft_name, 
+      nft_contract, nft_number, create_time, 
+      update_time)
+    values (#{userId,jdbcType=BIGINT}, #{nftNo,jdbcType=VARCHAR}, #{nftName,jdbcType=VARCHAR}, 
+      #{nftContract,jdbcType=VARCHAR}, #{nftNumber,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.UserNftAssets" useGeneratedKeys="true">
+    insert into user_nft_assets
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="nftNo != null">
+        nft_no,
+      </if>
+      <if test="nftName != null">
+        nft_name,
+      </if>
+      <if test="nftContract != null">
+        nft_contract,
+      </if>
+      <if test="nftNumber != null">
+        nft_number,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="nftNo != null">
+        #{nftNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nftName != null">
+        #{nftName,jdbcType=VARCHAR},
+      </if>
+      <if test="nftContract != null">
+        #{nftContract,jdbcType=VARCHAR},
+      </if>
+      <if test="nftNumber != null">
+        #{nftNumber,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.UserNftAssets">
+    update user_nft_assets
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="nftNo != null">
+        nft_no = #{nftNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nftName != null">
+        nft_name = #{nftName,jdbcType=VARCHAR},
+      </if>
+      <if test="nftContract != null">
+        nft_contract = #{nftContract,jdbcType=VARCHAR},
+      </if>
+      <if test="nftNumber != null">
+        nft_number = #{nftNumber,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.UserNftAssets">
+    update user_nft_assets
+    set user_id = #{userId,jdbcType=BIGINT},
+      nft_no = #{nftNo,jdbcType=VARCHAR},
+      nft_name = #{nftName,jdbcType=VARCHAR},
+      nft_contract = #{nftContract,jdbcType=VARCHAR},
+      nft_number = #{nftNumber,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="userNftAssetsList" parameterType="java.lang.Long" resultMap="BaseResultUserNftAssetsMap">
+    select
+      user_id, nft_no, nft_name,
+      nft_contract, nft_number
+    from  user_nft_assets where user_id = #{userId}
+  </select>
+
+</mapper>

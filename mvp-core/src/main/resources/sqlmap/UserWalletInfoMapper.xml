@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.UserWalletInfoMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.UserWalletInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="wallet_addr" jdbcType="VARCHAR" property="walletAddr" />
+    <result column="coin_id" jdbcType="BIGINT" property="coinId" />
+    <result column="coin_name" jdbcType="VARCHAR" property="coinName" />
+    <result column="total_recharge_amt" jdbcType="DECIMAL" property="totalRechargeAmt" />
+    <result column="total_in_amt" jdbcType="DECIMAL" property="totalInAmt" />
+    <result column="total_out_amt" jdbcType="DECIMAL" property="totalOutAmt" />
+    <result column="total_withdrawal_amt" jdbcType="DECIMAL" property="totalWithdrawalAmt" />
+    <result column="available_amt" jdbcType="DECIMAL" property="availableAmt" />
+    <result column="frozen_amt" jdbcType="DECIMAL" property="frozenAmt" />
+    <result column="account_status" jdbcType="CHAR" property="accountStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap id="BaseResultUserWalletBalanceMap" type="org.cybercrowd.mvp.dto.response.UserWalletBalanceRes">
+    <result column="coin_id" jdbcType="BIGINT" property="coinId"/>
+    <result column="coin_name" jdbcType="VARCHAR" property="coinName" />
+    <result column="coin_image" jdbcType="VARCHAR" property="coinImageUrl" />
+    <result column="available_amt" jdbcType="DECIMAL" property="balance" />
+    <result column="wallet_addr" jdbcType="VARCHAR" property="walletAddr" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, wallet_addr, coin_id, coin_name, total_recharge_amt, total_in_amt, total_out_amt, 
+    total_withdrawal_amt, available_amt, frozen_amt, account_status, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_wallet_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_wallet_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.UserWalletInfo" useGeneratedKeys="true">
+    insert into user_wallet_info (user_id, wallet_addr, coin_id, 
+      coin_name, total_recharge_amt, total_in_amt, 
+      total_out_amt, total_withdrawal_amt, available_amt, 
+      frozen_amt, account_status, create_time, 
+      update_time)
+    values (#{userId,jdbcType=BIGINT}, #{walletAddr,jdbcType=VARCHAR}, #{coinId,jdbcType=BIGINT}, 
+      #{coinName,jdbcType=VARCHAR}, #{totalRechargeAmt,jdbcType=DECIMAL}, #{totalInAmt,jdbcType=DECIMAL}, 
+      #{totalOutAmt,jdbcType=DECIMAL}, #{totalWithdrawalAmt,jdbcType=DECIMAL}, #{availableAmt,jdbcType=DECIMAL},
+      #{frozenAmt,jdbcType=DECIMAL}, #{accountStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.UserWalletInfo" useGeneratedKeys="true">
+    insert into user_wallet_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="walletAddr != null">
+        wallet_addr,
+      </if>
+      <if test="coinId != null">
+        coin_id,
+      </if>
+      <if test="coinName != null">
+        coin_name,
+      </if>
+      <if test="totalRechargeAmt != null">
+        total_recharge_amt,
+      </if>
+      <if test="totalInAmt != null">
+        total_in_amt,
+      </if>
+      <if test="totalOutAmt != null">
+        total_out_amt,
+      </if>
+      <if test="totalWithdrawalAmt != null">
+        total_withdrawal_amt,
+      </if>
+      <if test="availableAmt != null">
+        available_amt,
+      </if>
+      <if test="frozenAmt != null">
+        frozen_amt,
+      </if>
+      <if test="accountStatus != null">
+        account_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="walletAddr != null">
+        #{walletAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="coinId != null">
+        #{coinId,jdbcType=BIGINT},
+      </if>
+      <if test="coinName != null">
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalRechargeAmt != null">
+        #{totalRechargeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="totalInAmt != null">
+        #{totalInAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="totalOutAmt != null">
+        #{totalOutAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWithdrawalAmt != null">
+        #{totalWithdrawalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="availableAmt != null">
+        #{availableAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenAmt != null">
+        #{frozenAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="accountStatus != null">
+        #{accountStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.UserWalletInfo">
+    update user_wallet_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="walletAddr != null">
+        wallet_addr = #{walletAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="coinId != null">
+        coin_id = #{coinId,jdbcType=BIGINT},
+      </if>
+      <if test="coinName != null">
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalRechargeAmt != null">
+        total_recharge_amt = #{totalRechargeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="totalInAmt != null">
+        total_in_amt = #{totalInAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="totalOutAmt != null">
+        total_out_amt = #{totalOutAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWithdrawalAmt != null">
+        total_withdrawal_amt = #{totalWithdrawalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="availableAmt != null">
+        available_amt = #{availableAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenAmt != null">
+        frozen_amt = #{frozenAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="accountStatus != null">
+        account_status = #{accountStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.UserWalletInfo">
+    update user_wallet_info
+    set user_id = #{userId,jdbcType=BIGINT},
+      wallet_addr = #{walletAddr,jdbcType=VARCHAR},
+      coin_id = #{coinId,jdbcType=BIGINT},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      total_recharge_amt = #{totalRechargeAmt,jdbcType=DECIMAL},
+      total_in_amt = #{totalInAmt,jdbcType=DECIMAL},
+      total_out_amt = #{totalOutAmt,jdbcType=DECIMAL},
+      total_withdrawal_amt = #{totalWithdrawalAmt,jdbcType=DECIMAL},
+      available_amt = #{availableAmt,jdbcType=DECIMAL},
+      frozen_amt = #{frozenAmt,jdbcType=DECIMAL},
+      account_status = #{accountStatus,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="userWalletBalanceList" parameterType="java.lang.Long" resultMap="BaseResultUserWalletBalanceMap">
+    select
+        bc.coin_id,
+        bc.coin_name,
+        bc.coin_image,
+        uwi.wallet_addr,
+        uwi.available_amt
+    from user_wallet_info uwi left join base_coin bc on (uwi.coin_id = bc.coin_id) where uwi.user_id = #{userId}
+  </select>
+
+  <select id="selectUserWallet" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from user_wallet_info where user_id = #{param1} and coin_id = #{param2}
+  </select>
+</mapper>

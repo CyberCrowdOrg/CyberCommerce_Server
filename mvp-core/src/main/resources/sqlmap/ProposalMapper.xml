@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.ProposalMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.Proposal">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dao_no" jdbcType="VARCHAR" property="daoNo" />
+    <result column="proposal_no" jdbcType="VARCHAR" property="proposalNo" />
+    <result column="proposal_type" jdbcType="VARCHAR" property="proposalType" />
+    <result column="option_type" jdbcType="CHAR" property="optionType" />
+    <result column="proposal_title" jdbcType="VARCHAR" property="proposalTitle" />
+    <result column="proposal_context" jdbcType="VARCHAR" property="proposalContext" />
+    <result column="proposal_addr" jdbcType="VARCHAR" property="proposalAddr" />
+    <result column="proposal_start_time" jdbcType="TIMESTAMP" property="proposalStartTime" />
+    <result column="proposal_end_time" jdbcType="TIMESTAMP" property="proposalEndTime" />
+    <result column="proposal_status" jdbcType="CHAR" property="proposalStatus" />
+    <result column="owner_user_id" jdbcType="BIGINT" property="ownerUserId" />
+    <result column="owner_user_addr" jdbcType="VARCHAR" property="ownerUserAddr" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap id="DaoProposalListResultMap" type="org.cybercrowd.mvp.dto.DaoProposalDto">
+    <result column="dao_no" jdbcType="VARCHAR" property="daoNo" />
+    <result column="proposal_no" jdbcType="VARCHAR" property="proposalNo" />
+    <result column="option_type" jdbcType="CHAR" property="optionType" />
+    <result column="proposal_title" jdbcType="VARCHAR" property="proposalTitle" />
+    <result column="proposal_context" jdbcType="VARCHAR" property="proposalContext" />
+    <result column="proposal_addr" jdbcType="VARCHAR" property="proposalAddr" />
+    <result column="proposal_end_time" jdbcType="TIMESTAMP" property="proposalEndTime" />
+    <result column="proposal_status" jdbcType="CHAR" property="proposalStatus" />
+    <result column="owner_user_id" jdbcType="BIGINT" property="userId" />
+    <result column="owner_user_addr" jdbcType="VARCHAR" property="userAddr" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dao_no, proposal_no, proposal_type, option_type, proposal_title, proposal_context, 
+    proposal_addr, proposal_start_time, proposal_end_time, proposal_status, owner_user_id, 
+    owner_user_addr, image_url,create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from proposal
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from proposal
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.Proposal" useGeneratedKeys="true">
+    insert into proposal (dao_no, proposal_no, proposal_type, 
+      option_type, proposal_title, proposal_context, 
+      proposal_addr, proposal_start_time, proposal_end_time, 
+      proposal_status, owner_user_id, owner_user_addr,image_url,
+      create_time, update_time)
+    values (#{daoNo,jdbcType=VARCHAR}, #{proposalNo,jdbcType=VARCHAR}, #{proposalType,jdbcType=VARCHAR}, 
+      #{optionType,jdbcType=CHAR}, #{proposalTitle,jdbcType=VARCHAR}, #{proposalContext,jdbcType=VARCHAR}, 
+      #{proposalAddr,jdbcType=VARCHAR}, #{proposalStartTime,jdbcType=TIMESTAMP}, #{proposalEndTime,jdbcType=TIMESTAMP}, 
+      #{proposalStatus,jdbcType=CHAR}, #{ownerUserId,jdbcType=BIGINT}, #{ownerUserAddr,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.Proposal" useGeneratedKeys="true">
+    insert into proposal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="daoNo != null">
+        dao_no,
+      </if>
+      <if test="proposalNo != null">
+        proposal_no,
+      </if>
+      <if test="proposalType != null">
+        proposal_type,
+      </if>
+      <if test="optionType != null">
+        option_type,
+      </if>
+      <if test="proposalTitle != null">
+        proposal_title,
+      </if>
+      <if test="proposalContext != null">
+        proposal_context,
+      </if>
+      <if test="proposalAddr != null">
+        proposal_addr,
+      </if>
+      <if test="proposalStartTime != null">
+        proposal_start_time,
+      </if>
+      <if test="proposalEndTime != null">
+        proposal_end_time,
+      </if>
+      <if test="proposalStatus != null">
+        proposal_status,
+      </if>
+      <if test="ownerUserId != null">
+        owner_user_id,
+      </if>
+      <if test="ownerUserAddr != null">
+        owner_user_addr,
+      </if>
+      <if test="imageUrl != null">
+        image_url,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="daoNo != null">
+        #{daoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalNo != null">
+        #{proposalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalType != null">
+        #{proposalType,jdbcType=VARCHAR},
+      </if>
+      <if test="optionType != null">
+        #{optionType,jdbcType=CHAR},
+      </if>
+      <if test="proposalTitle != null">
+        #{proposalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalContext != null">
+        #{proposalContext,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalAddr != null">
+        #{proposalAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalStartTime != null">
+        #{proposalStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proposalEndTime != null">
+        #{proposalEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proposalStatus != null">
+        #{proposalStatus,jdbcType=CHAR},
+      </if>
+      <if test="ownerUserId != null">
+        #{ownerUserId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerUserAddr != null">
+        #{ownerUserAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.Proposal">
+    update proposal
+    <set>
+      <if test="daoNo != null">
+        dao_no = #{daoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalNo != null">
+        proposal_no = #{proposalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalType != null">
+        proposal_type = #{proposalType,jdbcType=VARCHAR},
+      </if>
+      <if test="optionType != null">
+        option_type = #{optionType,jdbcType=CHAR},
+      </if>
+      <if test="proposalTitle != null">
+        proposal_title = #{proposalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalContext != null">
+        proposal_context = #{proposalContext,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalAddr != null">
+        proposal_addr = #{proposalAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalStartTime != null">
+        proposal_start_time = #{proposalStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proposalEndTime != null">
+        proposal_end_time = #{proposalEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proposalStatus != null">
+        proposal_status = #{proposalStatus,jdbcType=CHAR},
+      </if>
+      <if test="ownerUserId != null">
+        owner_user_id = #{ownerUserId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerUserAddr != null">
+        owner_user_addr = #{ownerUserAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.Proposal">
+    update proposal
+    set dao_no = #{daoNo,jdbcType=VARCHAR},
+      proposal_no = #{proposalNo,jdbcType=VARCHAR},
+      proposal_type = #{proposalType,jdbcType=VARCHAR},
+      option_type = #{optionType,jdbcType=CHAR},
+      proposal_title = #{proposalTitle,jdbcType=VARCHAR},
+      proposal_context = #{proposalContext,jdbcType=VARCHAR},
+      proposal_addr = #{proposalAddr,jdbcType=VARCHAR},
+      proposal_start_time = #{proposalStartTime,jdbcType=TIMESTAMP},
+      proposal_end_time = #{proposalEndTime,jdbcType=TIMESTAMP},
+      proposal_status = #{proposalStatus,jdbcType=CHAR},
+      owner_user_id = #{ownerUserId,jdbcType=BIGINT},
+      owner_user_addr = #{ownerUserAddr,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectDaoProposalList" parameterType="java.lang.String" resultMap="DaoProposalListResultMap">
+    SELECT
+      pro.dao_no,
+      pro.proposal_no,
+      pro.option_type,
+      pro.proposal_title,
+      pro.proposal_context,
+      pro.proposal_addr,
+      pro.proposal_end_time,
+      pro.proposal_status,
+      pro.owner_user_id,
+      pro.owner_user_addr,
+      ui.user_avatar
+    FROM
+      proposal pro
+        LEFT JOIN user_info ui ON ( ui.user_id = pro.owner_user_id )
+    WHERE
+      dao_no = #{param1}
+  </select>
+</mapper>

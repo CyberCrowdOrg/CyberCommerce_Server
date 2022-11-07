@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.TaskRulesMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.TaskRules">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="rules_type" jdbcType="VARCHAR" property="rulesType" />
+    <result column="task_rules_json" jdbcType="VARCHAR" property="taskRulesJson" />
+    <result column="task_rules_content" jdbcType="VARCHAR" property="taskRulesContent" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, task_id, rules_type, task_rules_json, task_rules_content, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task_rules
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from task_rules
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.TaskRules" useGeneratedKeys="true">
+    insert into task_rules (task_id, rules_type, task_rules_json, 
+      task_rules_content, create_time, update_time
+      )
+    values (#{taskId,jdbcType=VARCHAR}, #{rulesType,jdbcType=VARCHAR}, #{taskRulesJson,jdbcType=VARCHAR}, 
+      #{taskRulesContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.TaskRules" useGeneratedKeys="true">
+    insert into task_rules
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="rulesType != null">
+        rules_type,
+      </if>
+      <if test="taskRulesJson != null">
+        task_rules_json,
+      </if>
+      <if test="taskRulesContent != null">
+        task_rules_content,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="rulesType != null">
+        #{rulesType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRulesJson != null">
+        #{taskRulesJson,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRulesContent != null">
+        #{taskRulesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.TaskRules">
+    update task_rules
+    <set>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="rulesType != null">
+        rules_type = #{rulesType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRulesJson != null">
+        task_rules_json = #{taskRulesJson,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRulesContent != null">
+        task_rules_content = #{taskRulesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.TaskRules">
+    update task_rules
+    set task_id = #{taskId,jdbcType=VARCHAR},
+      rules_type = #{rulesType,jdbcType=VARCHAR},
+      task_rules_json = #{taskRulesJson,jdbcType=VARCHAR},
+      task_rules_content = #{taskRulesContent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectTaskRulesByTaskId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from task_rules where task_id = #{param1}
+  </select>
+
+  <select id="selectTaskRulesByType" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from task_rules where task_id = #{param1} and rules_type = #{param2}
+  </select>
+</mapper>

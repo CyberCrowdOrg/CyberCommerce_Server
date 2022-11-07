@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.PayChannelMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.PayChannel">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_id" jdbcType="VARCHAR" property="channelId" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="channel_logo" jdbcType="VARCHAR" property="channelLogo" />
+    <result column="support_coin_type" jdbcType="VARCHAR" property="supportCoinType" />
+    <result column="channel_coin_id" jdbcType="VARCHAR" property="channelCoinId" />
+    <result column="channel_coin_name" jdbcType="VARCHAR" property="channelCoinName" />
+    <result column="channel_coin_icon" jdbcType="VARCHAR" property="channelCoinIcon" />
+    <result column="system_coin_id" jdbcType="BIGINT" property="systemCoinId" />
+    <result column="channel_api_url" jdbcType="VARCHAR" property="channelApiUrl" />
+    <result column="channel_api_key" jdbcType="VARCHAR" property="channelApiKey" />
+    <result column="channel_merchant_id" jdbcType="VARCHAR" property="channelMerchantId" />
+    <result column="support_refund" jdbcType="CHAR" property="supportRefund" />
+    <result column="refund_channel_id" jdbcType="BIGINT" property="refundChannelId" />
+    <result column="channel_status" jdbcType="CHAR" property="channelStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_id, channel_name, channel_logo, support_coin_type, channel_coin_id, channel_coin_name, 
+    channel_coin_icon, system_coin_id, channel_api_url, channel_api_key, channel_merchant_id, 
+    support_refund, refund_channel_id, channel_status, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_channel
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pay_channel
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.PayChannel" useGeneratedKeys="true">
+    insert into pay_channel (channel_id, channel_name, channel_logo, 
+      support_coin_type, channel_coin_id, channel_coin_name, 
+      channel_coin_icon, system_coin_id, channel_api_url, 
+      channel_api_key, channel_merchant_id, support_refund, 
+      refund_channel_id, channel_status, create_time, 
+      update_time)
+    values (#{channelId,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, #{channelLogo,jdbcType=VARCHAR}, 
+      #{supportCoinType,jdbcType=VARCHAR}, #{channelCoinId,jdbcType=VARCHAR}, #{channelCoinName,jdbcType=VARCHAR}, 
+      #{channelCoinIcon,jdbcType=VARCHAR}, #{systemCoinId,jdbcType=BIGINT}, #{channelApiUrl,jdbcType=VARCHAR}, 
+      #{channelApiKey,jdbcType=VARCHAR}, #{channelMerchantId,jdbcType=VARCHAR}, #{supportRefund,jdbcType=CHAR}, 
+      #{refundChannelId,jdbcType=BIGINT}, #{channelStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.PayChannel" useGeneratedKeys="true">
+    insert into pay_channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="channelLogo != null">
+        channel_logo,
+      </if>
+      <if test="supportCoinType != null">
+        support_coin_type,
+      </if>
+      <if test="channelCoinId != null">
+        channel_coin_id,
+      </if>
+      <if test="channelCoinName != null">
+        channel_coin_name,
+      </if>
+      <if test="channelCoinIcon != null">
+        channel_coin_icon,
+      </if>
+      <if test="systemCoinId != null">
+        system_coin_id,
+      </if>
+      <if test="channelApiUrl != null">
+        channel_api_url,
+      </if>
+      <if test="channelApiKey != null">
+        channel_api_key,
+      </if>
+      <if test="channelMerchantId != null">
+        channel_merchant_id,
+      </if>
+      <if test="supportRefund != null">
+        support_refund,
+      </if>
+      <if test="refundChannelId != null">
+        refund_channel_id,
+      </if>
+      <if test="channelStatus != null">
+        channel_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelId != null">
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelLogo != null">
+        #{channelLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="supportCoinType != null">
+        #{supportCoinType,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCoinId != null">
+        #{channelCoinId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCoinName != null">
+        #{channelCoinName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCoinIcon != null">
+        #{channelCoinIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCoinId != null">
+        #{systemCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="channelApiUrl != null">
+        #{channelApiUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="channelApiKey != null">
+        #{channelApiKey,jdbcType=VARCHAR},
+      </if>
+      <if test="channelMerchantId != null">
+        #{channelMerchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="supportRefund != null">
+        #{supportRefund,jdbcType=CHAR},
+      </if>
+      <if test="refundChannelId != null">
+        #{refundChannelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelStatus != null">
+        #{channelStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.PayChannel">
+    update pay_channel
+    <set>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelLogo != null">
+        channel_logo = #{channelLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="supportCoinType != null">
+        support_coin_type = #{supportCoinType,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCoinId != null">
+        channel_coin_id = #{channelCoinId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCoinName != null">
+        channel_coin_name = #{channelCoinName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCoinIcon != null">
+        channel_coin_icon = #{channelCoinIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCoinId != null">
+        system_coin_id = #{systemCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="channelApiUrl != null">
+        channel_api_url = #{channelApiUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="channelApiKey != null">
+        channel_api_key = #{channelApiKey,jdbcType=VARCHAR},
+      </if>
+      <if test="channelMerchantId != null">
+        channel_merchant_id = #{channelMerchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="supportRefund != null">
+        support_refund = #{supportRefund,jdbcType=CHAR},
+      </if>
+      <if test="refundChannelId != null">
+        refund_channel_id = #{refundChannelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelStatus != null">
+        channel_status = #{channelStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.PayChannel">
+    update pay_channel
+    set channel_id = #{channelId,jdbcType=VARCHAR},
+      channel_name = #{channelName,jdbcType=VARCHAR},
+      channel_logo = #{channelLogo,jdbcType=VARCHAR},
+      support_coin_type = #{supportCoinType,jdbcType=VARCHAR},
+      channel_coin_id = #{channelCoinId,jdbcType=VARCHAR},
+      channel_coin_name = #{channelCoinName,jdbcType=VARCHAR},
+      channel_coin_icon = #{channelCoinIcon,jdbcType=VARCHAR},
+      system_coin_id = #{systemCoinId,jdbcType=BIGINT},
+      channel_api_url = #{channelApiUrl,jdbcType=VARCHAR},
+      channel_api_key = #{channelApiKey,jdbcType=VARCHAR},
+      channel_merchant_id = #{channelMerchantId,jdbcType=VARCHAR},
+      support_refund = #{supportRefund,jdbcType=CHAR},
+      refund_channel_id = #{refundChannelId,jdbcType=BIGINT},
+      channel_status = #{channelStatus,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findPayChannel" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from pay_channel where channel_id = #{param1}
+  </select>
+  <select id="findAvailableChannelList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from pay_channel where channel_status = '1'
+  </select>
+</mapper>

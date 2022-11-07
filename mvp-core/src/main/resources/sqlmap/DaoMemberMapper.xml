@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cybercrowd.mvp.mapper.DaoMemberMapper">
+  <resultMap id="BaseResultMap" type="org.cybercrowd.mvp.model.DaoMember">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dao_no" jdbcType="VARCHAR" property="daoNo" />
+    <result column="owner_tag" jdbcType="CHAR" property="ownerTag" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_wallet_addr" jdbcType="VARCHAR" property="userWalletAddr" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delete_status" jdbcType="CHAR" property="deleteStatus" />
+    <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dao_no, owner_tag, task_id, user_id, user_wallet_addr, create_time, update_time, 
+    delete_status, delete_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dao_member
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dao_member
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.DaoMember" useGeneratedKeys="true">
+    insert into dao_member (dao_no, owner_tag, task_id, 
+      user_id, user_wallet_addr, create_time, 
+      update_time, delete_status, delete_time
+      )
+    values (#{daoNo,jdbcType=VARCHAR}, #{ownerTag,jdbcType=CHAR}, #{taskId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{userWalletAddr,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteStatus,jdbcType=CHAR}, #{deleteTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cybercrowd.mvp.model.DaoMember" useGeneratedKeys="true">
+    insert into dao_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="daoNo != null">
+        dao_no,
+      </if>
+      <if test="ownerTag != null">
+        owner_tag,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userWalletAddr != null">
+        user_wallet_addr,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleteStatus != null">
+        delete_status,
+      </if>
+      <if test="deleteTime != null">
+        delete_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="daoNo != null">
+        #{daoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerTag != null">
+        #{ownerTag,jdbcType=CHAR},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userWalletAddr != null">
+        #{userWalletAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteStatus != null">
+        #{deleteStatus,jdbcType=CHAR},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cybercrowd.mvp.model.DaoMember">
+    update dao_member
+    <set>
+      <if test="daoNo != null">
+        dao_no = #{daoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerTag != null">
+        owner_tag = #{ownerTag,jdbcType=CHAR},
+      </if>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userWalletAddr != null">
+        user_wallet_addr = #{userWalletAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=CHAR},
+      </if>
+      <if test="deleteTime != null">
+        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cybercrowd.mvp.model.DaoMember">
+    update dao_member
+    set dao_no = #{daoNo,jdbcType=VARCHAR},
+      owner_tag = #{ownerTag,jdbcType=CHAR},
+      task_id = #{taskId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      user_wallet_addr = #{userWalletAddr,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_status = #{deleteStatus,jdbcType=CHAR},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findMember" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from dao_member where dao_no = #{param2} and user_id = #{param1}
+  </select>
+
+  <select id="countDaoMember" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT
+      count(*)
+    FROM
+      dao_member
+    WHERE
+      dao_no = #{param1}
+      AND delete_status = '0';
+  </select>
+
+</mapper>

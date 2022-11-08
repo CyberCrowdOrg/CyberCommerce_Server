@@ -26,27 +26,6 @@ public class MvpApplication {
     public static void main(String[] args) {
         SpringApplication.run(MvpApplication.class,args);
         logger.info("...........MvpApplication Run...........");
-
-//        AwsCredentialsProviderChain awsCredentialsProviderChain = AwsCredentialsProviderChain.builder().
-//                addCredentialsProvider(new AwsCredentialsProvider() {
-//                    @Override
-//                    public AwsCredentials resolveCredentials() {
-//                        return AwsBasicCredentials
-//                                .create("AKIA5EBEFNWVS7SZXV66","rhu34l4EVM7Js23bfcbwpFnzKFJp+qFTkXLDI13d");
-//                    }
-//        }).build();
-//
-//        s3 = S3Client.builder()
-//                .credentialsProvider(awsCredentialsProviderChain)
-//                .region(Region.AP_SOUTHEAST_1)
-//                .build();
-//        PutObjectRequest objectRequest = PutObjectRequest.builder()
-//                .bucket("cybercrowd.bucket")
-//                .key("test/eth.png")
-//                .build();
-//        PutObjectResponse putObjectResponse = s3.putObject(objectRequest, RequestBody.fromFile(new File("/Users/gengchaonan/Downloads/eth.png")));
-//        System.out.println(putObjectResponse.sdkHttpResponse().isSuccessful());
-//        System.out.println(JSON.toJSONString(putObjectResponse));
     }
 
     @Value("${aws.s3.access_key}")
